@@ -11,11 +11,11 @@ const app = express()
 const port = process.env.PORT || 4000
 
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'avatars')))
 app.use(cors())
-
+app.use(express.static(path.resolve(__dirname, 'avatars')))
 app.use(fileupload({}))
-app.use(express.urlencoded({ extended: true }))
+
+// app.use(express.urlencoded({ extended: true }))
 
 app.use('/api', router)
 app.use('/auth', authRouter)
