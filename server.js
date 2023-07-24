@@ -33,7 +33,7 @@ app.listen(port, async () => {
   console.log('work')
   console.log(path.resolve(__dirname, 'avatars'))
 
-  const testFolder = './avatars'
+  const testFolder = path.join(__dirname, 'avatars')
   fs.readdirSync(testFolder).forEach((file) => {
     console.log(file)
   })
