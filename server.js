@@ -34,9 +34,7 @@ app.listen(port, async () => {
   console.log(path.resolve(__dirname, 'avatars'))
 
   const testFolder = './avatars'
-  fs.readdir(testFolder, (err, files) => {
-    files.forEach((file) => {
-      console.log(file)
-    })
+  fs.readdirSync(testFolder).forEach((file) => {
+    console.log(file)
   })
 })
