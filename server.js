@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const router = require('./router/index.js')
 const authRouter = require('./router/authRoutes.js')
 const path = require('path')
+const fs = require('fs')
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -30,5 +31,12 @@ app.listen(port, async () => {
     useUnifiedTopology: true,
   })
   console.log('work')
-  console.log(express.static(path.resolve(__dirname, 'avatars')))
+  console.log(path.resolve(__dirname, 'avatars'))
+
+  const testFolder = './avatars'
+  fs.readdir(testFolder, (err, files) => {
+    files.forEach((file) => {
+      console.log(file)
+    })
+  })
 })
