@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000
 
 app.use(express.json())
 app.use(cors())
-app.use(express.static(path.resolve(__dirname, 'avatars')))
+app.use('/static', express.static(path.join(__dirname, 'avatars')))
 app.use(
   fileupload({
     createParentPath: true,
@@ -30,4 +30,5 @@ app.listen(port, async () => {
     useUnifiedTopology: true,
   })
   console.log('work')
+  console.log(express.static(path.resolve(__dirname, 'avatars')))
 })
