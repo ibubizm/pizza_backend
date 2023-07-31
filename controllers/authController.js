@@ -9,8 +9,7 @@ class AuthorithationController {
   async registration(req, res) {
     try {
       const { email, password, phoneNumber, name, status = false } = req.body
-      let avatar
-      let fileName
+      let fileName = ''
 
       const candidate = await User.findOne({ email })
       if (candidate) {
@@ -20,7 +19,7 @@ class AuthorithationController {
       }
 
       if (req.files) {
-        avatar = req.files
+        const { avatar } = req.files
         fileName = uuid.v4() + '.jpg'
         avatar.mv(path.resolve(__dirname, '..', 'avatars', fileName))
       }
