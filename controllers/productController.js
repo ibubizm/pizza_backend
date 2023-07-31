@@ -22,6 +22,9 @@ class ProductController {
 
   async createProduct(req, res) {
     const productData = req.body
+    productData.types = productData.types.split(',')
+    productData.sizes = productData.sizes.split(',')
+    productData.price = productData.price.split(',')
     const newProduct = await productModel.create(productData)
     return res.status(201).json(newProduct)
   }

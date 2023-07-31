@@ -8,8 +8,9 @@ const jwt = require('jsonwebtoken')
 class AuthorithationController {
   async registration(req, res) {
     try {
-      const { email, password, phoneNumber, name } = req.body
-      const { avatar } = req.files
+      const { email, password, phoneNumber, name, status = false } = req.body
+      let avatar
+      let fileName
 
       const candidate = await User.findOne({ email })
       if (candidate) {
@@ -17,8 +18,12 @@ class AuthorithationController {
           .status(400)
           .json({ message: `User with email ${email} already exist ` })
       }
-      let fileName = uuid.v4() + '.jpg'
-      avatar.mv(path.resolve(__dirname, '..', 'avatars', fileName))
+
+      if (req.files) {
+        avatar = req.files
+        fileName = uuid.v4() + '.jpg'
+        avatar.mv(path.resolve(__dirname, '..', 'avatars', fileName))
+      }
 
       const hashPassword = await bcrypt.hash(password, 3)
 
@@ -28,6 +33,7 @@ class AuthorithationController {
         name,
         phoneNumber,
         avatar: fileName,
+        status,
       })
       const order = new Order({})
       user.orderHistory.push(order)
