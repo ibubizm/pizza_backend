@@ -12,7 +12,7 @@ class ProductController {
 
   async getOne(req, res) {
     const { id } = req.params
-    const product = await productModel.findOne({ id })
+    const product = await productModel.findOne({ _id: id })
     if (product) {
       return res.json(product)
     } else {
@@ -22,11 +22,17 @@ class ProductController {
 
   async createProduct(req, res) {
     const productData = req.body
-    productData.types = productData.types.split(',')
-    productData.sizes = productData.sizes.split(',')
-    productData.price = productData.price.split(',')
-    const newProduct = await productModel.create(productData)
-    return res.status(201).json(newProduct)
+    try {
+      productData.types =
+        productData.types.length !== 0 ? productData.types.split(',') : []
+      productData.sizes = productData.sizes.split(',')
+      productData.price = productData.price.split(',')
+
+      const newProduct = await productModel.create(productData)
+      return res.status(201).json(newProduct)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 
