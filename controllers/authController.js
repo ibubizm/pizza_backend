@@ -55,7 +55,7 @@ class AuthorithationController {
     if (!candidate) {
       return res
         .status(400)
-        .json({ message: `User with email ${email} already exist ` })
+        .json({ message: `User with email ${email} not found` })
     }
 
     const correctPassword = await bcrypt.compare(password, candidate.password)
