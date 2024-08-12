@@ -34,6 +34,20 @@ class ProductController {
       console.log(e)
     }
   }
+
+  async updateProduct(req, res) {
+    const productData = req.body
+    try {
+      const product = await productModel.updateOne(
+        { _id: productData._id },
+        { $set: { imageUrl: productData.imageUrl } }
+      )
+      return res.status(201).json(product)
+    } catch (e) {
+      console.log(e)
+    }
+    console.log(productData, '00000')
+  }
 }
 
 module.exports = new ProductController()
